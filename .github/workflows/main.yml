@@ -27,7 +27,7 @@ jobs:
 
     - name: Update Base Path for GH Pages
       run: |
-        sed -i 's|<base href="/"' />|<base href="/jubilant-enigma" />|g' ./publish/wwwroot/index.html
+        sed -i 's|<base href="/" />|<base href="/jubilant-enigma" />|g' ./publish/wwwroot/index.html
 
     - name: Copy index to 404
       run: cp release/wwwroot/index.html release/wwwroot/404.html
