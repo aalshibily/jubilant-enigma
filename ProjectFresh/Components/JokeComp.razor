@@ -1,0 +1,24 @@
+﻿@using ProjectFresh.Domain.Models.Joke
+
+<div class="card mb-3 @(isEven ? ("text-bg-secondary"):("text-bg-light")) opacity-75">
+    <div class="card-header text-capitalize">
+        @joke.Type
+    </div>
+    <div class="card-body ">
+        
+        <h5 class="card-title">
+            @joke.Setup
+        </h5>
+        
+        <p class="card-text">
+            @joke.Punchline
+        </p>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Joke joke { get; set; }
+    [Parameter]
+    public bool isEven { get; set; }
+}

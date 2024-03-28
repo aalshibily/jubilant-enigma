@@ -1,0 +1,15 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<button class="btn btn-info" @onclick="()=>ToastTest()">Click to test toast</button>
+
+@code{
+    private void ToastTest(){
+        ToastService.ShowToast("This is a toast message!", "Success", 6000);
+    }
+}

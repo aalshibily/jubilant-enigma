@@ -1,0 +1,94 @@
+﻿@page "/jokes"
+@using Aegis.Core.Domain.Entities
+@using Aegis.Core.Domain.Enums
+@using Aegis.Core.Extensions
+@using Aegis.Core.Interfaces.Services
+@using Aegis.Web.Components
+
+<PageTitle>Jokes</PageTitle>
+
+
+<h2>Wanna hear a joke?</h2>
+<form>
+    <div class="mb-3 text-light">
+        <label for="joke-id" class="form-label">Get a joke by its id</label>
+        <input id="joke-id" type="number" class="mb-3 form-control" @bind-value="id" />
+    </div>
+</form>
+
+<button class="mb-3 btn btn-success" @onclick="() => GetJoke(null)">Get one</button>
+<input class="mb-3 form-control" type="number" @bind-value="id" />
+<button class="mb-3 btn btn-success" @onclick="() => GetJoke(id)">Specific Joke By Id</button>
+<div>
+    <InputSelect @bind-Value="jokeType" class="mb-3 form-select">
+        @foreach (var jt in Enum.GetValues(typeof(JokeType)))
+        {
+            <option value="@jt">@(((JokeType)jt).GetFriendlyName())</option>
+        }
+    </InputSelect>
+</div>
+@if (JokesOnPage.Count == 0 || JokesOnPage is null)
+{
+    <div class="mb-3">No jokes to show here, yet. Click one of the buttons to fetch a joke!</div>
+}
+else
+{
+    <div class="container py-3">
+
+        @foreach (var j in JokesOnPage)
+        {
+            <JokeCard Joke="j" isEven="JokesOnPage.IndexOf(j)%2==0"/>
+        }
+    </div>
+}
+
+
+
+@code
+{
+    List<Joke> JokesOnPage = new List<Joke>();
+    public JokeType jokeType { get; set; }
+    int id = 0;
+    [Inject]
+    private IJokeService JokeService { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+
+    public async Task GetJoke(int? id)
+    {
+        bool uniqueAdded = false;
+        if (id <= 0)
+        {
+            ToastService.ShowToast($"Id:{id} is invalid");
+            return;
+        }
+        if (id is not null)
+        {
+            var result = (await JokeService.GetJokeById(id.Value)).ToList();
+            if (result.First().Id == 0)
+            {
+                ToastService.ShowToast($"Id:{id} is invalid");
+                return;
+            }
+            uniqueAdded = JokesOnPage.AddUniques(result);
+
+        }
+        else
+        {
+            var result = (await JokeService.GetOneRandom()).ToList();
+            uniqueAdded = JokesOnPage.AddUniques(result);
+        }
+
+        if (uniqueAdded)
+        {
+            ToastService.ShowToast("Got some jokes");
+        }
+        else
+        {
+            ToastService.ShowToast("Joke(s) already exist in list");
+        }
+    }
+}

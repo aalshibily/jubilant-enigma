@@ -1,0 +1,19 @@
+﻿@using Aegis.Core.Domain.Entities
+
+<div class="card mb-3 @(isEven? "bg-dark text-white" : "bg-light")">
+    <div class="card-header">
+        @Joke.Type.GetFriendlyName()
+        <span class="float-end">#@Joke.Id</span>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">@Joke.Setup</h5>
+        <p class="card-text">@Joke.Punchline</p>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Joke Joke { get; set; }
+    [Parameter]
+    public bool isEven { get; set; }
+}

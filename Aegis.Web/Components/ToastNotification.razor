@@ -1,0 +1,32 @@
+﻿@using System
+@inject ToastNotificationService ToastService
+
+<div class="toast-container">
+    @foreach (var toast in ToastService.GetActiveNotifications())
+    {
+        <div class="toast show" @key=toast.Id>
+        <div class="toast-header">
+            <strong class="mr-auto">@toast.Heading</strong>
+            <button class="ml-2 mb-1 close" type="button" @onclick="() => ToastService.RemoveToast(toast.Id)">&times;</button>
+        </div>
+        <div class="toast-body">
+            @toast.Message
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar" style="width: @toast.Progress%;"></div>
+        </div>
+    </div>
+    }
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        ToastService.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        ToastService.OnChange -= StateHasChanged;
+    }
+}

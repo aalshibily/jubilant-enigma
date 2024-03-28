@@ -1,0 +1,68 @@
+﻿@page "/jokes"
+@using ProjectFresh.Domain.Constants
+@using ProjectFresh.Domain.Models.Joke
+@using ProjectFresh.Helpers
+
+<PageTitle>Jokes</PageTitle>
+
+
+<h2>Wanna hear a joke?</h2>
+<form>
+    <div class="mb-3 text-light">
+        <label for="joke-id" class="form-label">Get a joke by its id</label>
+        <input id="joke-id" type="number" class="mb-3 form-control" @bind-value="id" />
+    </div>
+</form>
+
+<button class="mb-3 btn btn-success" @onclick="() => GetJoke(null)">Get one</button>
+<input class="mb-3 form-control" type="number" @bind-value="id" />
+<button class="mb-3 btn btn-success" @onclick="() => GetJoke(id)">Specific Joke By Id</button>
+<div>
+    <InputSelect @bind-Value="jokeType" class="mb-3 form-select">
+        @foreach (var jt in Enum.GetValues(typeof(JokeType)))
+        {
+            <option value="@jt">@(((JokeType)jt).ToStringCustom())</option>
+        }
+    </InputSelect>
+</div>
+@if (JokesOnPage.Count == 0)
+{
+    <div class="text-light mb-3">No jokes to show here, yet. Click one of the buttons to fetch a joke!</div>
+}
+else
+{
+    foreach (Joke j in JokesOnPage)
+    {
+        <ProjectFresh.Components.JokeComp joke="j" isEven="JokesOnPage.IndexOf(j)%2==0"></ProjectFresh.Components.JokeComp>
+    }
+}
+
+
+
+@code
+{
+    List<Joke> JokesOnPage = new List<Joke>();
+    public JokeType jokeType { get; set; }
+    int id = 0;
+    [Inject]
+    private IJokeService JokeService { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+
+    public async Task GetJoke(int? id)
+    {
+        if (id is not null)
+        {
+            var result = await JokeService.GetJokeById(id.Value);
+            JokesOnPage.AddUnique(result);
+        }
+        else
+        {
+            var result = await JokeService.GetOneRandomJoke();
+            JokesOnPage.Add(result);
+        }
+    }
+}
