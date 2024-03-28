@@ -20,7 +20,7 @@ jobs:
       run: dotnet workload install wasm-tools
     
     - name: Publish .NET Core Project
-      run: dotnet publish Web/Web.csproj -c:Release -p:GHPages=true -o dist/Web --nologo
+      run: dotnet publish Aegis.Web\Aegis.Web.csproj -c:Release -p:GHPages=true -o dist/Web --nologo
 
     #- name: Update Base Path for GH Pages
     #  run: |
