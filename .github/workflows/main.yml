@@ -15,29 +15,26 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '8.0'
+        
+    - name: Install .NET WASM Build Tools
+      run: dotnet workload install wasm-tools
+    
+    - name: Publish .NET Core Project
+      run: dotnet publish Web/Web.csproj -c:Release -p:GHPages=true -o dist/Web --nologo
 
-    - name: Restore Dependencies
-      run: dotnet restore
+    #- name: Update Base Path for GH Pages
+    #  run: |
+    #    sed -i 's|<base href="/" />|<base href="/jubilant-enigma" />|g' ./publish/wwwroot/index.html
 
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
+    #- name: Copy index to 404
+    #  run: cp publish/wwwroot/index.html publish/wwwroot/404.html
 
-    - name: Publish
-      run: dotnet publish --configuration Release --output publish
-
-    - name: Update Base Path for GH Pages
-      run: |
-        sed -i 's|<base href="/" />|<base href="/jubilant-enigma" />|g' ./publish/wwwroot/index.html
-
-    - name: Copy index to 404
-      run: cp publish/wwwroot/index.html publish/wwwroot/404.html
-
-    - name: Add .nojekyll File
-      run: touch publish/wwwroot/.nojekyll
+    #- name: Add .nojekyll File
+    #  run: touch publish/wwwroot/.nojekyll
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@4.1.0
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         branch: gh-pages
-        folder: publish/wwwroot
+        folder: dist/Web/wwwroot
