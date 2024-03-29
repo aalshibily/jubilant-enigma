@@ -17,4 +17,16 @@
     <ProjectReference Include="..\Aegis.Core\Aegis.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\js\" />
+  </ItemGroup>
+
+  <Target Name="CopyParticleJS" AfterTargets="ResolveReferences">
+    <Copy
+      SourceFiles="$(ProjectDir)../node_modules/particlesjs/dist/particles.min.js"
+      DestinationFolder="$(ProjectDir)wwwroot/js"
+      SkipUnchangedFiles="true"
+      />
+  </Target>
+
 </Project>
