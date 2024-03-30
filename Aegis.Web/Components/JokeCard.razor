@@ -1,6 +1,6 @@
 ﻿@using Aegis.Core.Domain.Entities
 
-<div class="card mb-3 @(isEven? "bg-dark text-white" : "bg-light")">
+<div class="card bg-opacity-75 mb-3 @(isEven? "bg-dark text-white" : "bg-light text-dark")">
     <div class="card-header">
         @Joke.Type.GetFriendlyName()
         <span class="float-end">#@Joke.Id</span>
