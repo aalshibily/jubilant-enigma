@@ -1,0 +1,42 @@
+@inject NavigationManager NavigationManager
+
+<div class="text-center">
+    <h3>Next Friday in:</h3>
+    <h1>@TimeToNextFriday.Days</h1>
+    <h3>Days</h3>
+    <h1>@TimeToNextFriday.Hours</h1>
+    <h3>Hours</h3>
+    <h1>@TimeToNextFriday.Minutes</h1>
+    <h3>Minutes</h3>
+    <h1>@TimeToNextFriday.Seconds</h1>
+    <h3>Seconds</h3>
+</div>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        while (true)
+        {
+            //reload the page when time reaches 0
+            if (TimeToNextFriday.TotalSeconds <= 0)
+            {
+                NavigationManager.NavigateTo("/friday", true);
+            }
+            StateHasChanged();
+            await Task.Delay(1000);
+        }
+    }
+
+    private TimeSpan TimeToNextFriday
+    {
+        get
+        {
+            var now = DateTime.Now;
+            var daysUntilFriday = ((int)DayOfWeek.Friday - (int)now.DayOfWeek + 7) % 7;
+            var nextFriday = now.Date.AddDays(daysUntilFriday);
+            var timeToNextFriday = nextFriday - now;
+            return timeToNextFriday;
+        }
+    }
+    
+}
