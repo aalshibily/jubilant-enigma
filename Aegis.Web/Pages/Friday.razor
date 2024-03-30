@@ -1,4 +1,5 @@
 ﻿@page "/friday"
+@using Aegis.Web.Components
 <h3>Friday</h3>
 
 @if (IsFriday)
@@ -12,6 +13,7 @@
 else
 {
     <h3>Come back on a Friday!</h3>
+    <CountdownToFriday />
 }
 
 @code {
