@@ -14,6 +14,8 @@ body{
     top: 0;
     left: 0;
     z-index: -1;
+    min-height: 100vh;
+    height: 100vh;
 }
 
 h1:focus {
@@ -182,3 +184,18 @@ code {
     cursor: pointer;
     font-size: 1.2rem;
 }
+
+.video-responsive {
+    overflow: hidden;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    position: relative;
+    height: 0;
+}
+
+    .video-responsive iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
