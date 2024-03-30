@@ -1,7 +1,7 @@
 ﻿@using System
 @inject ToastNotificationService ToastService
 
-<div class="toast-container">
+<div class="toast-container text-dark">
     @foreach (var toast in ToastService.GetActiveNotifications())
     {
         <div class="toast show" @key=toast.Id>
