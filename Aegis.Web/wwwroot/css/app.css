@@ -192,6 +192,27 @@ code {
     height: 0;
 }
 
+@media (max-width: 768px) {
+    .toast-container {
+        bottom: 10px;
+        right: 10px;
+        width: auto; /* Allow the container to adjust based on the toast size */
+        max-width: 90%; /* Prevent the toast from taking the full screen width */
+    }
+
+    .toast {
+        width: auto; /* Allow the toast to expand based on its content, up to the container's max-width */
+        padding: 8px;
+        padding-bottom: 5px; /* Keep reduced padding at the bottom */
+        margin-bottom: 0.5rem; /* Reduce the space between multiple toasts */
+    }
+
+    .close {
+        font-size: 1.5rem; /* Make the close button larger and easier to tap */
+    }
+}
+
+
     .video-responsive iframe {
         position: absolute;
         top: 0;
