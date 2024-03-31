@@ -14,7 +14,7 @@ namespace Aegis.Core.Services
 
         public IEnumerable<ToastNotification> GetActiveNotifications() => notifications;
 
-        public void ShowToast(string message, string heading = "Notification", int timeout = 5000)
+        public void ShowToast(string message, string heading = "Notification", int timeout = 3000)
         {
             if (notifications.Count >= 5)
             {
