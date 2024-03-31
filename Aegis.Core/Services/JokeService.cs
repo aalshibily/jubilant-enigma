@@ -1,5 +1,6 @@
 ﻿using Aegis.Core.Domain.Entities;
 using Aegis.Core.Domain.Enums;
+using Aegis.Core.Extensions;
 using Aegis.Core.Interfaces.Services;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,11 @@ namespace Aegis.Core.Services
     public class JokeService : IJokeService
     {
         private readonly HttpClient _httpClient;
-        private readonly char[] _chars = { '[', ']' };
+        private readonly char[] _chars = ['[', ']'];
         private static readonly JsonSerializerOptions _options = new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true,
+            Converters = { new JokeTypeConverter() }
         };
 
         public JokeService(HttpClient httpClient)
@@ -113,7 +115,7 @@ namespace Aegis.Core.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var jsonResponse = await response.Content.ReadAsStringAsync();
-                    var jokes = JsonSerializer.Deserialize<IEnumerable<Joke>>(jsonResponse.Trim(_chars), _options);
+                    var jokes = JsonSerializer.Deserialize<IEnumerable<Joke>>(jsonResponse, _options);
 
                     return jokes;
                 }
@@ -140,7 +142,7 @@ namespace Aegis.Core.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var jsonResponse = await response.Content.ReadAsStringAsync();
-                    var jokes = JsonSerializer.Deserialize<IEnumerable<Joke>>(jsonResponse.Trim(_chars), _options);
+                    var jokes = JsonSerializer.Deserialize<IEnumerable<Joke>>(jsonResponse, _options);
 
                     return jokes;
                 }

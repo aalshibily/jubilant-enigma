@@ -9,24 +9,40 @@
 
 
 <h2>Wanna hear a joke?</h2>
-<form>
-    <div class="mb-3 text-light">
-        <label for="joke-id" class="form-label">Get a joke by its id</label>
-        <input id="joke-id" type="number" class="mb-3 form-control" @bind-value="id" />
-    </div>
-</form>
 
-<button class="mb-3 btn btn-success" @onclick="() => GetJoke(null)">Get one</button>
-<input class="mb-3 form-control" type="number" @bind-value="id" />
-<button class="mb-3 btn btn-success" @onclick="() => GetJoke(id)">Specific Joke By Id</button>
-<div>
-    <InputSelect @bind-Value="jokeType" class="mb-3 form-select">
-        @foreach (var jt in Enum.GetValues(typeof(JokeType)))
-        {
-            <option value="@jt">@(((JokeType)jt).GetFriendlyName())</option>
-        }
-    </InputSelect>
+<div class="container col-6">
+    <div class="mb-3">
+        <InputNumber @bind-Value="id" class="form-control mb-3" placeholder="Enter joke id" />
+        <button class="btn btn-info mb-3" @onclick="() => GetJokeById(id)">
+            Get joke by id
+        </button>
+    </div>
+
+    <div>
+        <InputSelect @bind-Value="jokeType" class="mb-3 form-select">
+            @foreach (var jt in Enum.GetValues<JokeType>())
+            {
+                <option value="@jt">@(((JokeType)jt).GetFriendlyName())</option>
+            }
+        </InputSelect>
+
+        <fieldset class="mb-3 input-group">
+            <legend class="mb-3">Single or Multiple</legend>
+            <InputRadioGroup Name="amount" @bind-Value="single" class="mb-3">
+                <label class="form-check-label mb-3 me-3">
+                    <InputRadio Value="true" Name="amount" class="form-check-input mb-3" /> Single
+                </label>
+                <label class="form-check-label mb-3 me-3">
+                    <InputRadio Value="false" Name="amount" class="form-check-input mb-3" /> Multiple
+                </label>
+            </InputRadioGroup>
+        </fieldset>
+        <button class="btn btn-info mb-3" @onclick="() => GetJokes(single, jokeType)">
+            @(single ? "Get a single joke" : "Get multiple jokes")
+        </button>
+    </div>
 </div>
+ 
 @if (JokesOnPage.Count == 0 || JokesOnPage is null)
 {
     <div class="mb-3">No jokes to show here, yet. Click one of the buttons to fetch a joke!</div>
@@ -47,7 +63,8 @@ else
 @code
 {
     List<Joke> JokesOnPage = new List<Joke>();
-    public JokeType jokeType { get; set; }
+    public JokeType jokeType { get; set; } = JokeType.Random;
+    public bool single { get; set; } = true;
     int id = 0;
     [Inject]
     private IJokeService JokeService { get; set; }
@@ -57,7 +74,7 @@ else
         await base.OnInitializedAsync();
     }
 
-    public async Task GetJoke(int? id)
+    public async Task GetJokeById(int id)
     {
         bool uniqueAdded = false;
         if (id <= 0)
@@ -65,23 +82,46 @@ else
             ToastService.ShowToast($"Id:{id} is invalid");
             return;
         }
-        if (id is not null)
+        else
         {
-            var result = (await JokeService.GetJokeById(id.Value)).ToList();
-            if (result.First().Id == 0)
-            {
-                ToastService.ShowToast($"Id:{id} is invalid");
-                return;
-            }
+            var result = (await JokeService.GetJokeById(id)).ToList();
             uniqueAdded = JokesOnPage.AddUniques(result);
+        }
+        ConfirmAddedOrExisting(uniqueAdded);
+    }
 
+    public async Task GetJokes(bool single, JokeType type)
+    {
+        bool uniqueAdded = false;
+        var result = new List<Joke>();
+        if (single)
+        {
+            if (jokeType == JokeType.Random)
+            {
+                result = (await JokeService.GetOneRandom()).ToList();
+            }
+            else
+            {
+                result = (await JokeService.GetOneByType(jokeType)).ToList();
+            }
         }
         else
         {
-            var result = (await JokeService.GetOneRandom()).ToList();
-            uniqueAdded = JokesOnPage.AddUniques(result);
+            if (jokeType == JokeType.Random)
+            {
+                result = (await JokeService.GetTenRandom()).ToList();
+            }
+            else
+            {
+                result = (await JokeService.GetTenByType(jokeType)).ToList();
+            }
         }
+        uniqueAdded = JokesOnPage.AddUniques(result);
+        ConfirmAddedOrExisting(uniqueAdded);
+    }
 
+    private void ConfirmAddedOrExisting(bool uniqueAdded)
+    {
         if (uniqueAdded)
         {
             ToastService.ShowToast("Got some jokes");
