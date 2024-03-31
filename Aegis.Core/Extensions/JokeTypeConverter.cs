@@ -21,6 +21,7 @@ namespace Aegis.Core.Extensions
                 "general" => JokeType.General,
                 "knock-knock" => JokeType.Knock_knock,
                 "programming" => JokeType.Programming,
+                "dad" => JokeType.Dad, // Added "dad" to the switch statement to handle the new joke type "Dad
                 _ => throw new JsonException($"Unknown joke type: {value}")
             };
         }
@@ -33,6 +34,7 @@ namespace Aegis.Core.Extensions
                 JokeType.General => "general",
                 JokeType.Knock_knock => "knock-knock",
                 JokeType.Programming => "programming",
+                JokeType.Dad => "dad", // Added "dad" to the switch statement to handle the new joke type "Dad
                 _ => throw new JsonException($"Unknown joke type: {value}")
             };
 
