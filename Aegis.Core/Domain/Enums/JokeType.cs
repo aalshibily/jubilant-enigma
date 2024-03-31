@@ -12,7 +12,8 @@ namespace Aegis.Core.Domain.Enums
         Random = 100,
         Programming = 200,
         General = 300,
-        Knock_knock = 400
+        Knock_knock = 400,
+        Dad = 500
     }
 
     public static class JokeTypeDescriptions
@@ -22,7 +23,8 @@ namespace Aegis.Core.Domain.Enums
             { JokeType.Random, "Random" },
             { JokeType.Programming, "Programming" },
             { JokeType.General, "General" },
-            { JokeType.Knock_knock, "Knock-knock" }
+            { JokeType.Knock_knock, "Knock-knock" },
+            { JokeType.Dad, "Dad" }
         };
 
         public static string GetFriendlyName(this JokeType type)
