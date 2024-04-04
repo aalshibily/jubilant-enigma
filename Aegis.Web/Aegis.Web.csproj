@@ -18,15 +18,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\assets\documents\" />
+    <Folder Include="wwwroot\assets\pictures\" />
     <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
   <Target Name="CopyParticleJS" AfterTargets="ResolveReferences">
-    <Copy
-      SourceFiles="$(ProjectDir)../node_modules/particlesjs/dist/particles.min.js"
-      DestinationFolder="$(ProjectDir)wwwroot/js"
-      SkipUnchangedFiles="true"
-      />
+    <Copy SourceFiles="$(ProjectDir)../node_modules/particlesjs/dist/particles.min.js" DestinationFolder="$(ProjectDir)wwwroot/js" SkipUnchangedFiles="true" />
   </Target>
 
 </Project>
