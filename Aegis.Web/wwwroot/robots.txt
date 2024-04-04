@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /assets/
+Disallow: /css/
+Disallow: /js/
+Disallow: /resume
+Disallow: /resume/
+Disallow: /resume.html
