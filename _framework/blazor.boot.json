@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "Aegis.Web",
   "resources": {
-    "hash": "sha256-KrE9kUcqNuRFrWO6JYfTLL0oPfG6GJlS4irVeZZdP2M=",
+    "hash": "sha256-PK+BQHR95aKTozuIcK8WhtK+nkYggaHrsE2XRT5/R+k=",
     "jsModuleNative": {
       "dotnet.native.8.0.3.jsz9uj1ufa.js": "sha256-0MFKts/CuiiMzMBrowUd9UOwsS7ysqVk5qGfHK/bG5U="
     },
@@ -17,8 +17,8 @@
       "icudt_no_CJK.dat": "sha256-L7sV7NEYP37/Qr2FPCePo5cJqRgTXRwGHuwF5Q+0Nfs="
     },
     "assembly": {
-      "Aegis.Core.wasm": "sha256-naDheu2sSMlg4T2P0SbHUAWHyKOEEccsY2Ko5BLzFrI=",
-      "Aegis.Web.wasm": "sha256-RwX46xOSIOCrjkYzOH0w4jbyFlyzLf8p9RAgmXBGfx4=",
+      "Aegis.Core.wasm": "sha256-93nGvkACRXlquf8ZxQmJJWS1hXE1q00wFmTBiw3Wy3Y=",
+      "Aegis.Web.wasm": "sha256-sj6D9tyqbP7hkHoUuPIqSvGDIAG5Xx2rmqrxij4Vv4E=",
       "Blazor.GoogleTagManager.wasm": "sha256-PY7NhF+o3EbYxLRSjvLsK1wqaxFSdfDfcsqhjfepRdA=",
       "Microsoft.AspNetCore.Components.Forms.wasm": "sha256-zDNzSzKNaU+jyvgqAGKsgf4jAuRRuhgRYcCay5D9uVI=",
       "Microsoft.AspNetCore.Components.wasm": "sha256-9UbCPH/N2Ptq7m60DIrLoU7UHGexwOohx015KFFmscE=",
