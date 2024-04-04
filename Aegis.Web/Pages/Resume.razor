@@ -1,5 +1,6 @@
 ﻿@page "/resume"
 @layout NoNav
+
 <div class="container px-4 py-5 bg-dark bg-opacity-75">
     <div class="text-center">
         <img class="mb-4 rounded-circle" src="assets/pictures/profile.jpg" alt="Abdullah Alshibily" style="width: 150px; height: 150px;">
@@ -13,7 +14,7 @@
             Bridging Business and Technology
         </p>
         <p>
-            <a href="https://www.linkedin.com/in/abdullah-alshibily/" class="btn btn-primary" target="_blank">
+            <a href="https://www.linkedin.com/in/abdullah-alshibily/" class="btn btn-primary" target="_blank" @onclick="LinkedIn">
                 LinkedIn Profile
             </a>
         </p>
@@ -207,3 +208,10 @@
         </div>
     </section>
 </div>
+
+@code{
+    private async Task LinkedIn()
+    {
+        await GoogleTagManager.PushAsync(new { @event = "linkedin_button_clicked" });
+    }
+}
