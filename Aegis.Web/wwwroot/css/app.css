@@ -220,7 +220,7 @@ code {
 }
 
 .courses-preview {
-    background-image: url('/assets/images/home/features-texture.webp');
+    background-image: url('../assets/images/home/features-texture.webp');
     background-repeat: repeat;
     position: relative;
     
