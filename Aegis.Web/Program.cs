@@ -14,6 +14,7 @@ namespace Aegis.Web
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
             builder.Services.AddGoogleTagManager("GTM-NPG996PR");
+            builder.Services.AddBlazorBootstrap();
 
             builder.Services.AddSingleton<ToastNotificationService>();
 
