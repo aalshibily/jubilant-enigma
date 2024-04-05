@@ -13,7 +13,7 @@
 <div class="container col-6">
     <div class="mb-3">
         <InputNumber @bind-Value="id" class="form-control mb-3" placeholder="Enter joke id" />
-        <button class="btn btn-info mb-3" @onclick="() => GetJokeById(id)">
+        <button class="btn btn-primary mb-3" @onclick="() => GetJokeById(id)">
             Get joke by id
         </button>
     </div>
@@ -37,7 +37,7 @@
                 </label>
             </InputRadioGroup>
         </fieldset>
-        <button class="btn btn-info mb-3" @onclick="() => GetJokes(single, jokeType)">
+        <button class="btn btn-primary mb-3" @onclick="() => GetJokes(single, jokeType)">
             @(single ? "Get a single joke" : "Get multiple jokes")
         </button>
     </div>

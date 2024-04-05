@@ -2,14 +2,82 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<!-- Hero Section -->
+<section class="hero text-center bg-dark text-white py-5 ">
+    <h1>Embark on Your Coding Adventure</h1>
+    <p class="lead">Unlock the secrets of coding through the universe of gaming. Start your journey today!</p>
+    <img src="/assets/images/home/hero.webp" alt="Hero Image" class="img-fluid my-3">
+    <a class="btn btn-primary" href="#" @onclick="ShowComingSoon">Begin Quest!</a>
+</section>
 
-Welcome to your new app.
+<!-- Features Section -->
+<section class="features py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <img src="/assets/images/home/interactive-coding-challenges.webp" alt="Challenge Icon" class="img-fluid">
+                <h3>Interactive Coding Challenges</h3>
+                <p>Conquer coding challenges inspired by epic gaming quests.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <img src="/assets/images/home/video-tutorials.webp" alt="Tutorial Icon" class="img-fluid">
+                <h3>Video Tutorials</h3>
+                <p>Watch and learn as we break down complex coding tasks with game-like tutorials.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <img src="/assets/images/home/community-support.webp" alt="Community Icon" class="img-fluid">
+                <h3>Community Support</h3>
+                <p>Join our community of fellow coding adventurers to share tips, tricks, and triumphs.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-<button class="btn btn-info" @onclick="()=>ToastTest()">Click to test toast</button>
+<!-- Courses Preview Section -->
+<section class="courses-preview bg-light py-5">
+    <div class="container">
+        <h2 class="text-center">Featured Courses</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <img src="/assets/images/home/game-development.webp" alt="Game Development Course" class="img-fluid">
+                <h4>Introduction to Game Development with C#</h4>
+                <p>Dive into game development by creating your first game.</p>
+            </div>
+            <div class="col-md-4">
+                <img src="/assets/images/home/javascript-quest.webp" alt="JavaScript Course" class="img-fluid">
+                <h4>JavaScript Quests: Front-End Adventures</h4>
+                <p>Embark on front-end adventures with JavaScript.</p>
+            </div>
+            <div class="col-md-4">
+                <img src="/assets/images/home/mastering-unity.webp" alt="Unity Course" class="img-fluid">
+                <h4>Mastering Unity: From Novice to Knight</h4>
+                <p>Level up your game development skills with Unity.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials py-5 text-center">
+    <div class="container">
+        <h2>What Our Adventurers Say</h2>
+        <p>"Joining Code and Controller has been like unlocking a new level in my coding skills. The gamified approach made learning so much more fun!"</p>
+        <p>"The community support is fantastic! It's like being part of a guild where everyone is ready to help you on your quest."</p>
+        <p>"The video tutorials are engaging and informative. I've learned more here than I ever did in traditional coding courses."</p>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center py-3">
+    <div class="container">
+        <p>© 2024 Code and Controller. All rights reserved.</p>
+        <p>Follow us on social media!</p>
+    </div>
+</footer>
 
 @code{
-    private void ToastTest(){
-        ToastService.ShowToast("This is a toast message!", "Success", 6000);
+    private void ShowComingSoon(){
+        Console.WriteLine("Coming soon!");
+        ToastService.ShowToast("Stay tuned!", "Coming Soon!", 3000);
     }
 }
