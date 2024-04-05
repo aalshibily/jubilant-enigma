@@ -1,8 +1,12 @@
 ﻿@inherits LayoutComponentBase
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+
+<div class="bb-page">
+
+    <Sidebar @ref="sidebar"
+        IconName="IconName.Controller"
+        Title="Code and Controller"
+        DataProvider="SidebarDataProvider"
+        />
 
     <main>
         <div class="top-row px-4">
@@ -18,3 +22,87 @@
 <Aegis.Web.Components.ToastNotification/>
 <Aegis.Web.Components.ParticleCanvas/>
 <GoogleTagManagerPageViewTracker/>
+
+@code{
+    Sidebar sidebar;
+    IEnumerable<NavItem> navItems;
+
+    private async Task<SidebarDataProviderResult> SidebarDataProvider(SidebarDataProviderRequest request)
+    {
+        if (navItems is null)
+        {
+            navItems = GetNavItems();
+        }
+        return await Task.FromResult(request.ApplyTo(navItems));
+    }
+
+    private IEnumerable<NavItem> GetNavItems()
+    {
+        return new List<NavItem>
+        {
+            new NavItem
+            {
+                Id = "100",
+                IconName = IconName.HouseDoorFill,
+                Text = "Home",
+                Href = "/",
+                Match = NavLinkMatch.All
+            },
+            new NavItem
+            {
+                Id = "200",
+                IconName = IconName.PlusSquareFill,
+                Text = "Counter",
+                Href = "/counter",
+                Match = NavLinkMatch.All
+            },
+            new NavItem
+            {
+                Id = "300",
+                IconName = IconName.EmojiLaughingFill,
+                Text = "Jokes",
+                Href = "/jokes",
+                Match = NavLinkMatch.All
+            },
+            new NavItem
+            {
+                Id = "400",
+                IconName = IconName.CalendarDayFill,
+                Text = "Friday",
+                Href = "/friday",
+                Match = NavLinkMatch.All
+            },
+            new NavItem
+            {
+                Id = "500",
+                IconName = IconName.UmbrellaFill,
+                Text = "Weather",
+                Href = "/weather",
+                Match = NavLinkMatch.All
+            }
+        };
+    }
+}
+<style>
+    :root {
+        --bb-sidebar-width: 270px;
+        --bb-sidebar-collapsed-width: 50px;
+        --bb-sidebar-background-color: #222; /* Dark gray background for the sidebar */
+        --bb-sidebar-top-row-background-color: rgba(51, 51, 51, 0.08); /* Slightly lighter shade for top row background */
+        --bb-sidebar-top-row-border-color: rgb(128, 128, 128); /* A medium gray for borders, providing better visibility */
+        --bb-sidebar-title-text-color: #FFFFFF; /* Crisp white for title text for better readability */
+        --bb-sidebar-brand-icon-color: #39FF14; /* Neon green for the brand icon, adding a vibrant touch */
+        --bb-sidebar-brand-image-width: 24px;
+        --bb-sidebar-brand-image-height: 24px;
+        --bb-sidebar-title-badge-text-color: #FFFFFF; /* White text for badges to ensure readability */
+        --bb-sidebar-title-badge-background-color: #007BFF; /* Electric blue for badge background, adding a professional yet dynamic feel */
+        --bb-sidebar-navbar-toggler-icon-color: #FFFFFF; /* White for navbar toggler to stand out against the dark sidebar */
+        --bb-sidebar-navbar-toggler-background-color: rgba(51, 51, 51, 0.08); /* Slightly lighter shade for the toggler background */
+        --bb-sidebar-content-border-color: rgb(128, 128, 128); /* Medium gray border color for subtle separation */
+        --bb-sidebar-nav-item-text-color: #C0C0C0; /* Silver gray for inactive nav item text, offering a softer contrast */
+        --bb-sidebar-nav-item-text-active-color: #007BFF; /* Electric blue for active nav item text, highlighting the current page */
+        --bb-sidebar-nav-item-text-hover-color: #39FF14; /* Neon green on hover, creating a dynamic interaction effect */
+        --bb-sidebar-nav-item-background-hover-color: rgba(57, 255, 20, 0.08); /* Subtle neon green background on hover for visual feedback */
+        --bb-sidebar-nav-item-group-background-color: rgba(57, 255, 20, 0.08); /* Matching group background color for consistency */
+    }
+</style>
