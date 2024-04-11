@@ -25,6 +25,16 @@ namespace Aegis.Web
                 client.BaseAddress = new Uri("https://official-joke-api.appspot.com/");
             });
 
+            builder.Services.AddHttpClient("rmbg", client =>
+            {
+                client.BaseAddress = new Uri("https://rembg-pi3phlxe5a-uc.a.run.app/");
+            });
+
+            //builder.Services.AddHttpClient("rmbg", client =>
+            //{
+            //    client.BaseAddress = new Uri("http://localhost:6969/");
+            //});
+
 
             await builder.Build().RunAsync();
         }
