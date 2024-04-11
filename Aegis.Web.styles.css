@@ -175,3 +175,17 @@ main[b-bdeo40ohhj] {
         overflow-y: auto;
     }
 }
+/* /Pages/Rmbg.razor.rz.scp.css */
+.drop-zone[b-y9afp14r9r] {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+    .drop-zone.dragover[b-y9afp14r9r] {
+        background-color: #f0f0f0;
+    }
