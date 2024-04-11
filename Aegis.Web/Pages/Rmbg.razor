@@ -1,0 +1,65 @@
+﻿@page "/rmbg"
+@inject IHttpClientFactory HttpClientFactory
+
+
+<h3>Background Remover</h3>
+<div id="dropZone" class="drop-zone container-fluid">
+    <p>Upload a picture to remove it's background</p>
+    <InputFile OnChange="@OnInputFileChange" id="fileInput"/>
+<button id="submitButton" @onclick="HandleValidSubmit" @onsubmit="HandleValidSubmit">Submit</button>
+</div>
+@if(spinner)
+{
+    <div class="d-flex justify-content-center">
+        <Spinner Type="SpinnerType.Border" />
+    </div>
+}
+@if (!string.IsNullOrEmpty(imageSrc))
+{
+    <img src="@imageSrc" alt="Uploaded Image" class="container-fluid"/>
+}
+
+
+@code {
+    private HttpClient _httpClient;
+    private bool spinner = false;
+    private IBrowserFile file;
+    private string imageSrc;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _httpClient = HttpClientFactory.CreateClient("rmbg");
+    }
+
+    private async Task OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        file = e.File; // Store the file reference
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (file == null)
+        {
+            // Handle case where no file is selected
+            return;
+        }
+
+        await UploadFile(file);
+    }
+
+    async Task UploadFile(IBrowserFile file)
+    {
+        var content = new MultipartFormDataContent();
+        var fileContent = new StreamContent(file.OpenReadStream(maxAllowedSize: 1024 * 1024 * 5));
+        fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(file.ContentType);
+        content.Add(fileContent, "file", file.Name);
+        spinner = true;
+        var response = await _httpClient.PostAsync("/",content);
+        spinner = false;
+        if (response.IsSuccessStatusCode)
+        {
+            var imageBytes = await response.Content.ReadAsByteArrayAsync();
+            imageSrc = $"data:image/png;base64,{Convert.ToBase64String(imageBytes)}";
+        }
+    }
+}
