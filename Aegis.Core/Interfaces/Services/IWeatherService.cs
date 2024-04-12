@@ -9,6 +9,6 @@ namespace Aegis.Core.Interfaces.Services
 {
     public interface IWeatherService
     {
-        Task<IEnumerable<ActiveAlert>> GetAlertsByState(string state);
+        Task<IEnumerable<Properties>> GetAlertsByState(string state);
     }
 }
