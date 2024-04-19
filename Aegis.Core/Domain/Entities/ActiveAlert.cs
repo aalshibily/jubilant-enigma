@@ -37,11 +37,11 @@ namespace Aegis.Core.Domain.Entities
         public Geocode geocode { get; set; }
         public string[] affectedZones { get; set; }
         public Reference[] references { get; set; }
-        public DateTime sent { get; set; }
-        public DateTime effective { get; set; }
-        public DateTime onset { get; set; }
-        public DateTime expires { get; set; }
-        public DateTime ends { get; set; }
+        public DateTime? sent { get; set; }
+        public DateTime? effective { get; set; }
+        public DateTime? onset { get; set; }
+        public DateTime? expires { get; set; }
+        public DateTime? ends { get; set; }
         public string status { get; set; }
         public string messageType { get; set; }
         public string category { get; set; }
