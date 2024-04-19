@@ -18,7 +18,7 @@ namespace Aegis.Core.Services
             _httpClient = httpClient;
         }
 
-        public async Task<IEnumerable<Properties>> GetAlertsByState(string state)
+        public async Task<IEnumerable<SmallAlert>> GetAlertsByState(string state)
         {
             try
             {
@@ -27,7 +27,12 @@ namespace Aegis.Core.Services
                 {
                     var jsonResponse = await response.Content.ReadAsStringAsync();
                     var activeAlerts = JsonSerializer.Deserialize<ActiveAlert>(jsonResponse);
-                    return activeAlerts.features.Select(f => f.properties);
+                    var alerts = new List<SmallAlert>();
+                    foreach (var alert in activeAlerts.features)
+                    {
+                        alerts.Add(new SmallAlert(alert.properties));
+                    }
+                    return alerts;
                 }
                 else
                 {
@@ -36,6 +41,11 @@ namespace Aegis.Core.Services
             }
             catch (Exception ex)
             {
+                if(ex.GetType() == typeof(JsonException))
+                {
+                    throw new JsonException($"An error occurred while deserializing the response from '/alerts/active?area={state}'", ex);
+                }
+                
                 throw new ApplicationException($"An error occurred while making a GET request to '/alerts/active?area={state}'", ex);
             }
         }
