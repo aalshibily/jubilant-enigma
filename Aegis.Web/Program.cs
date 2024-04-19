@@ -30,6 +30,11 @@ namespace Aegis.Web
                 client.BaseAddress = new Uri("https://rembg-pi3phlxe5a-uc.a.run.app/");
             });
 
+            builder.Services.AddHttpClient<IWeatherService,WeatherService>(client =>
+            {
+                client.BaseAddress = new Uri("https://api.weather.gov");
+            });
+
             //builder.Services.AddHttpClient("rmbg", client =>
             //{
             //    client.BaseAddress = new Uri("http://localhost:6969/");
