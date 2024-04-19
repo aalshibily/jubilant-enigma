@@ -1,22 +1,22 @@
 ﻿@using System
 @inject ToastNotificationService ToastService
 
-<div class="toast-container text-dark bg-dark">
+<div class="toast-container text-dark">
 
     @foreach (var toast in ToastService.GetActiveNotifications())
     {
         <div class="toast show" @key=toast.Id>
-        <div class="toast-header">
-                <strong class="me-auto fs-6 fs-sm-5">@toast.Heading</strong>
-                <button class="ml-2 mb-1 close" type="button" @onclick="() => ToastService.RemoveToast(toast.Id)">&times;</button>
+            <div class="toast-header">
+                    <strong class="me-auto fs-6 fs-sm-5">@toast.Heading</strong>
+                    <button class="ml-2 mb-1 close" type="button" @onclick="() => ToastService.RemoveToast(toast.Id)">&times;</button>
+            </div>
+                <div class="toast-body fs-6 fs-sm-5">
+                    @toast.Message
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar" style="width: @toast.Progress%;"></div>
+            </div>
         </div>
-            <div class="toast-body fs-6 fs-sm-5">
-                @toast.Message
-        </div>
-        <div class="progress-container">
-            <div class="progress-bar" style="width: @toast.Progress%;"></div>
-        </div>
-    </div>
     }
 </div>
 
