@@ -1,0 +1,19 @@
+@using Aegis.Core.Domain.Entities
+
+<div class="card my-3">
+    <div class="card-header">
+        <h5 class="card-title">@Alert.Headline</h5>
+    </div>
+    <div class="card-body">
+        <p class="card-text">@Alert.Description</p>
+    </div>
+    <div class="card-footer">
+        <small class="text-muted float-start">Effective: @Alert.Effective</small>
+        <small class="text-muted float-end">Ends: @Alert.Ends</small>
+    </div>
+</div>
+
+@code{
+    [Parameter]
+    public SmallAlert Alert { get; set; }
+}
