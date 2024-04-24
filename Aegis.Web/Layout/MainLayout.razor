@@ -79,7 +79,22 @@
                 Text = "Weather",
                 Href = "weather",
                 Match = NavLinkMatch.All
-            }
+            },
+            new NavItem
+            {
+                Id = "600",
+                IconName = IconName.Controller,
+                Text = "Games"
+            },
+            new NavItem
+            {
+                Id = "610",
+                IconName = IconName.Controller,
+                Text = "Game Of Life",
+                Href = "games/gameoflife",
+                Match = NavLinkMatch.All,
+                ParentId = "600"
+            },
         };
     }
 }
