@@ -1,0 +1,113 @@
+﻿@page "/games/gameoflife"
+
+@using Aegis.Game.GameOfLife
+
+<h3>Game of Life</h3>
+<div>
+    Generation: @generation
+</div>
+<div style="display: grid; grid-template-columns: repeat(@game.Columns, 20px);">
+    @for (int i = 0; i < game.Rows; i++)
+    {
+        for (int j = 0; j < game.Columns; j++)
+        {
+            var localRow = i;
+            var localColumn = j;
+            <div @onclick="() => ToggleCell(localRow, localColumn)" style="width: 20px; height: 20px; border: 1px solid black; background-color: @(game.Grid[i, j] ? "black" : "white")"></div>
+        }
+    }
+</div>
+<button @onclick="NextGeneration">Next Generation</button>
+<button @onclick="Randomize">Randomize</button>
+<button @onclick="Clear">Clear</button>
+<div>
+    <label for="interval">Simulate every:</label>
+    <input id="interval" type="number" @bind-value="interval" step="0.1" min="0.05" /> seconds
+    <button @onclick="AutoPlay">Auto Play</button>
+</div>
+
+<section>
+    <h3>Introduction</h3>
+    <p>
+        The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970.
+        It is a zero-player game, meaning that its evolution is determined by its initial state, requiring no further input.
+        One interacts with the Game of Life by creating an initial configuration and observing how it evolves.
+    </p>
+    <p>
+        The universe of the Game of Life is an infinite, two-dimensional orthogonal grid of square cells, each of which is in one of two possible states, live or dead.
+        Every cell interacts with its eight neighbours, which are the cells that are horizontally, vertically, or diagonally adjacent.
+        At each step in time, the following transitions occur:
+    </p>
+</section>
+
+<section>
+    <h3>Rules</h3>
+    <ul>
+        <li>Any live cell with fewer than two live neighbours dies, as if by underpopulation.</li>
+        <li>Any live cell with two or three live neighbours lives on to the next generation.</li>
+        <li>Any live cell with more than three live neighbours dies, as if by overpopulation.</li>
+        <li>Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.</li>
+    </ul>
+</section>
+
+
+@code {
+    private GameOfLife game = new GameOfLife(20, 20);
+    private int generation = 0;
+    private float interval = 0.2f;
+
+    protected override void OnInitialized()
+    {
+        game.GenerationCompleted += Game_GenerationCompleted;
+    }
+
+    private void ToggleCell(int row, int column)
+    {
+        game.ToggleCell(row, column);
+        StateHasChanged();
+    }
+
+    private void NextGeneration()
+    {
+        if(game.IsStable())
+        {
+            return;
+        }
+        game.NextGeneration();
+    }
+
+    private void Randomize()
+    {
+        game.RandomizeGrid();
+        generation = 0;
+        StateHasChanged();
+    }
+
+    private void Clear()
+    {
+        game.ClearGrid();
+        generation = 0;
+        StateHasChanged();
+    }
+
+    private async void AutoPlay()
+    {
+        game.NextGeneration();
+        if (!game.IsStable())
+        {
+            await Task.Delay(Convert.ToInt32(interval*1000));
+            AutoPlay();
+        }
+    }
+
+    private void Game_GenerationCompleted(object sender, EventArgs e)
+    {
+        generation++;
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        game.GenerationCompleted -= Game_GenerationCompleted;
+    }
+}
