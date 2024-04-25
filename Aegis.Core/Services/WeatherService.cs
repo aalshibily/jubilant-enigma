@@ -1,4 +1,5 @@
 ﻿using Aegis.Core.Domain.Entities;
+using Aegis.Core.Exceptions;
 using Aegis.Core.Interfaces.Services;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,12 @@ namespace Aegis.Core.Services
             try
             {
                 var response = await _httpClient.GetAsync($"/alerts/active?area={state}");
+                
+                if(response.StatusCode == System.Net.HttpStatusCode.BadGateway)
+                {
+                    throw new BadGatewayException($"Request to '/alerts/active?area={state}' failed with status code {response.StatusCode}. API might be down.");
+                }
+                
                 if (response.IsSuccessStatusCode)
                 {
                     var jsonResponse = await response.Content.ReadAsStringAsync();
@@ -38,6 +45,7 @@ namespace Aegis.Core.Services
                 {
                     throw new HttpRequestException($"Request to '/alerts/active?area={state}' failed with status code {response.StatusCode}.");
                 }
+                
             }
             catch (Exception ex)
             {

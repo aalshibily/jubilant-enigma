@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		main.yml = main.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aegis.Game", "Aegis.Game\Aegis.Game.csproj", "{D29D882A-313B-44AF-8E54-2D6390EE49E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +30,10 @@ Global
 		{388A6178-3600-4D80-8701-996C36B89B00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{388A6178-3600-4D80-8701-996C36B89B00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{388A6178-3600-4D80-8701-996C36B89B00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D29D882A-313B-44AF-8E54-2D6390EE49E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D29D882A-313B-44AF-8E54-2D6390EE49E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D29D882A-313B-44AF-8E54-2D6390EE49E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D29D882A-313B-44AF-8E54-2D6390EE49E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

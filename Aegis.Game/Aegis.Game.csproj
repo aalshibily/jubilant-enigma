@@ -6,11 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Domain\Events\" />
-    <Folder Include="Domain\ValueObjects\" />
-    <Folder Include="Interfaces\Data\" />
-    <Folder Include="Interfaces\Repositories\" />
-  </ItemGroup>
-
 </Project>
