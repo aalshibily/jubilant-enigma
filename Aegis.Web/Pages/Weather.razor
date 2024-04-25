@@ -1,5 +1,6 @@
 ﻿@page "/weather"
 @using Aegis.Core.Domain.Entities
+@using Aegis.Core.Exceptions
 @using Aegis.Core.Interfaces.Services
 @using Aegis.Web.Components
 @using System.Text.Json
@@ -38,6 +39,12 @@ else if(NoAlerts)
         <strong>Good News!</strong> No alerts found for this state(@selectedState).
     </div>
 }
+else if(ApiError)
+{
+    <div class="alert alert-danger text-center" role="alert">
+        <strong>Oh no!</strong> There was an error fetching the alerts. API might be down.
+    </div>
+})
 
 @code {
     //private WeatherForecast[]? forecasts;
@@ -46,6 +53,8 @@ else if(NoAlerts)
     private HttpClient _weather;
     private List<SmallAlert> Alerts = new List<SmallAlert>();
     private bool NoAlerts = false;
+    private bool ApiError = false;
+
     [Inject]
     private IWeatherService weatherService { get; set; }
 
@@ -74,6 +83,11 @@ else if(NoAlerts)
         catch (JsonException)
         {
             NoAlerts = true;
+        }
+        catch (BadGatewayException)
+        {
+            NoAlerts = false;
+            ApiError = true;
         }
     }
 
