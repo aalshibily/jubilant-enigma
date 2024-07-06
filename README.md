@@ -1,5 +1,7 @@
-# ProjectFresh
+# Blazor Website/App
 
-Just a project I'm playing around with.
+Just a project I'm playing around with using .NET + C# + Blazor
 
-Rebuild of an old site that I made back in 2014, with some adjustments, improvements and additions.
+With some adjustments, improvements and additions.
+
+Updated packages and new features.
